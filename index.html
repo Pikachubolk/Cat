@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neko Image</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1f1f1f; /* Dark background color */
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <img id="nekoImage" src="" alt="Neko Image">
+    <script>
+        // Replace this with the actual API URL
+        const apiUrl = 'https://nekos.best/api/v2/neko';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const imageElement = document.getElementById('nekoImage');
+                if (data.results && data.results.length > 0) {
+                    const imageUrl = data.results[0].url;
+                    imageElement.src = imageUrl;
+                } else {
+                    imageElement.alt = 'Image not available';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching image:', error);
+                const imageElement = document.getElementById('nekoImage');
+                imageElement.alt = 'Error fetching image';
+            });
+    </script>
+</body>
+</html>
